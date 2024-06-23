@@ -16,8 +16,6 @@ Welcome to **shopHere**, a comprehensive e-commerce application built using the 
 - Shopping Cart functionality
 - Responsive Design for all devices
 - Secure Payments integration
-- Order Management system (Coming Soon)
-- Role Based Access (Coming Soon)
 
 ## Technologies Used
 - **Frontend:**
@@ -36,18 +34,18 @@ Follow these steps to get the application up and running on your local machine:
 1. **Clone the repository:**
     ```sh
     git clone https://github.com/zishanAl/shopHere.git
-    cd shopHere
+    cd ShopShere
     ```
 
 2. **Install server dependencies:**
     ```sh
-    cd api
+    cd backend
     npm install
     ```
 
 3. **Install client dependencies:**
     ```sh
-    cd client
+    cd frontend
     npm install
     ```
 
@@ -63,12 +61,12 @@ Follow these steps to get the application up and running on your local machine:
 5. **Run the application:**
     - Start the backend server:
       ```sh
-      cd api
+      cd backend
       npm start
       ```
     - Start the frontend development server:
       ```sh
-      cd client
+      cd frontend
       npm start
       ```
 
