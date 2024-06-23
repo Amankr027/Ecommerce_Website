@@ -5,11 +5,14 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useHistory } from "react-router";
-
+import { removeProduct } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
+// write your personal key
 const KEY = "pk_test_51OakC9SACD6i7T2E4WavPmVTyX7d9zXMCjJ39e3e5RXVWJbiA9xmn0dmE5rI5QMiXSpheCR3MJURVov6i7fKctS500yGE3vOe4";
 
 const Container = styled.div``;
@@ -163,9 +166,14 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onToken = (token) => {
     setStripeToken(token);
+  };
+
+  const handleRemoveClick = (productId) => {
+    dispatch(removeProduct({ id: productId }));
   };
 
   useEffect(() => {
@@ -173,7 +181,8 @@ const Cart = () => {
       try {
         const res = await userRequest.post("/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: 50000,
+          // stripeToken: stripeToken.id,
+          amount: 5000,
         });
         history.push("/success", {
           stripeData: res.data,
@@ -189,7 +198,8 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          
+          <Link to="/" >CONTINUE SHOPPING</Link>
           <TopTexts>
             <TopText>Shopping Bag(2)</TopText>
             <TopText>Your Wishlist (0)</TopText>
@@ -210,9 +220,8 @@ const Cart = () => {
                       <b>ID:</b> {product._id}
                     </ProductId>
                     <ProductColor color={product.color} />
-                    <ProductSize>
-                      <b>Size:</b> {product.size}
-                    </ProductSize>
+                    
+                    <Button onClick={() => handleRemoveClick(product.id)}>Remove</Button>
                   </Details>
                 </ProductDetail>
                 <PriceDetail>
@@ -233,7 +242,7 @@ const Cart = () => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.total.toFixed(3)}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -245,10 +254,10 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.total.toFixed(3)}</SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
-              name="Lama Shop"
+              name="ABCD Shop"
               image="https://avatars.githubusercontent.com/u/1486366?v=4"
               billingAddress
               shippingAddress
@@ -266,5 +275,4 @@ const Cart = () => {
     </Container>
   );
 };
-
 export default Cart;

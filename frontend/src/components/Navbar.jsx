@@ -4,7 +4,9 @@ import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
+import { logout } from "../redux/apiCalls";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div`
   height: 60px;
@@ -69,8 +71,17 @@ const MenuItem = styled.div`
 `;
 
 const Navbar = () => {
-  const quantity = useSelector(state=>state.cart.quantity)
-  const logoutt = ()
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.currentUser);
+  const quantity = useSelector(state => state.cart.quantity);
+  // if(user == null) return null;
+  const handleLogout = () => {
+    logout(dispatch);
+  };
+
+  
+  
+
   return (
     <Container>
       <Wrapper>
@@ -82,23 +93,49 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>LAMA.</Logo>
+          <Logo>ShopHere</Logo>
         </Center>
         <Right>
-          <Link to="/register">
-          <MenuItem>REGISTER</MenuItem>
-          </Link>
-          <Link to="/login">
-          <MenuItem>SIGN IN</MenuItem>
-          </Link>
-          <button onClick={logoutt}></button>
-          <Link to="/cart">
-          <MenuItem>
-            <Badge badgeContent={quantity} color="primary">
-              <ShoppingCartOutlined />
-            </Badge>
-          </MenuItem>
-          </Link>
+          {user ? (
+            <Link to="/" onClick={handleLogout}>
+              <MenuItem>LOG OUT</MenuItem>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <MenuItem>SIGN IN</MenuItem>
+            </Link>
+          )}
+
+          {user ? (
+            // <Link to="/">
+              <MenuItem>{user.username.toUpperCase()}</MenuItem>
+            // </Link>
+          ) : (
+            <Link to="/register">
+              <MenuItem>REGISTER</MenuItem>
+            </Link>
+          )}
+          
+
+          {user ? (
+            <Link to="/cart">
+              <MenuItem>
+                <Badge badgeContent={quantity} color="primary">
+                  <ShoppingCartOutlined />
+                </Badge>
+              </MenuItem>
+            </Link>
+          ) : (
+            <Link to="/">
+              <MenuItem>
+                <Badge badgeContent={0} color="primary">
+                  <ShoppingCartOutlined />
+                </Badge>
+              </MenuItem>
+            </Link>
+          )}
+
+
         </Right>
       </Wrapper>
     </Container>

@@ -26,6 +26,7 @@ const Logo = styled.h1``;
 
 const Desc = styled.p`
   margin: 20px 0px;
+  
 `;
 
 const SocialContainer = styled.div`
@@ -88,11 +89,13 @@ const Footer = () => {
   return (
     <Container>
       <Left>
-        <Logo>LAMA.</Logo>
+        <Logo>Shop</Logo>
         <Desc>
-          There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration in some form, by injected
-          humour, or randomised words which don’t look even slightly believable.
+        Welcome to ShopSphere, your one-stop destination for "fashion".
+         We are dedicated to providing you with the best online shopping experience, 
+         offering high-quality products at unbeatable prices. 
+         Enjoy fast and secure shipping, easy returns, and excellent customer service. 
+         Thank you for shopping with us!
         </Desc>
         <SocialContainer>
           <SocialIcon color="3B5999">
@@ -127,13 +130,13 @@ const Footer = () => {
       <Right>
         <Title>Contact</Title>
         <ContactItem>
-          <Room style={{marginRight:"10px"}}/> 622 Dixie Path , South Tobinchester 98336
+          <Room style={{marginRight:"10px"}}/> IIIT Bhagalpur , Bihar 845265
         </ContactItem>
         <ContactItem>
           <Phone style={{marginRight:"10px"}}/> +1 234 56 78
         </ContactItem>
         <ContactItem>
-          <MailOutline style={{marginRight:"10px"}} /> contact@lama.dev
+          <MailOutline style={{marginRight:"10px"}} /> contact@aman.dev
         </ContactItem>
         <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
       </Right>
